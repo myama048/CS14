@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cassert>
+#include<algorithm>
 #include "MyList.h"
 using namespace std;
 
@@ -248,16 +249,18 @@ int  MyList::find(MyList& query_str)const{
 MyList& MyList::operator=(const MyList& str){
     /*Overloaded assignment operator. Assigns the contents rhs (r-value) list 
     to lhs (l-value) list, e.g. l1 = l2; Check for self-assignment.*/
-    MyList* l = new MyList();
+
 
     if(this != &str){
-        Node* curr = 0;
-        //delete[] this;
-        for(curr = str.head; curr; curr = curr->next){
-            l->push_back(curr->value);
+        if(head){
+            delete this;
+        }
+        for(Node* curr = str.head; curr; curr = curr->next){
+            this->push_back(curr->value);
         }
     }
-    return *l;
+    return *this;
+    
 }
 
 /*
@@ -307,7 +310,7 @@ MyList MyList::operator+(const MyList& str){
 
 //---------------------------------------------------------------------------------------
 
-bool MyList::is_palidrome()const{
+bool MyList::is_palindrome()const{
     /*Checks whether list object (implicit) contains a palindrome.*/
     int sz = size();
     int mid = 0;
@@ -357,20 +360,32 @@ bool MyList::is_palidrome()const{
 void MyList::merge_list(MyList A, MyList B){
     /*Merges two sorted lists A and B into implicit list object. 
     HINT: A and B are passed-by-copy.*/
-    Node* curr = A.head;
-    Node* b = B.head;
     
-    if(curr){
-        while(curr->next){ // curr pointing to A's tail
-            curr = curr->next;
+
+    int i = 0;
+    int j = 0;
+    while(i < A.size() || j < B.size()){
+        if(i < A.size() && j < B.size())
+        {
+            if(A[i] < B[j]){
+                this->push_back(A[i]);
+                i++;
+            }
+            else{
+                this->push_back(B[j]);
+                j++;
+            }
+        }
+        else if(i < A.size()){
+            this->push_back(A[i]);
+            i++;
+        }
+        else{
+            this->push_back(B[j]);
+            j++;
         }
     }
     
-    for(b = B.head; b; b = b->next){
-        A.push_back(b->value);
-    }
-    
-    *this = A;
 }
 
 
@@ -378,12 +393,31 @@ bool MyList::remove_char(char c){
     /*Removes all instances of char c from implicit list object, 
     e.g. remove all commas (',')
     return true if at least one instance of char c is in the list, false otherwise.*/
-    if(c == '1'){
-        return true;
+    bool ok = false;
+    
+    Node* curr = 0;
+    if(!head){
+        return ok;
     }
-    else {
-        return false;
+    else if(!head->next){
+        if(head->value == c){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+    
+    for(curr = head; curr->next; curr = curr->next){
+        if(curr->next->value == c){
+            Node* tmp = curr->next;
+            curr->next = tmp->next;
+            delete tmp;
+            ok = true;
+        }
+    }
+    
+    return ok;
 }
 
 

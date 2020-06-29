@@ -128,6 +128,25 @@ int main() {
   cout << "list l4 + l1: ";
   l4 + l1; 
   l4.print();
+  
+  MyList pp;
+  pp.push_back(1);
+  pp.push_back(2);
+  pp.push_back(1);
+  
+  
+  if(!pp.is_palidrome()){
+    cout << "l4 is not palidrome" << endl;
+  }else{
+    cout << "it is palidrome" << endl;
+  }
+  
+  l3.print();
+  MyList tst = l3;
+  tst.print();
+  tst.push_back('3');
+  tst.print();
+  l3.print();
 
   cout << "Good Bye!" << endl;
   return 0;

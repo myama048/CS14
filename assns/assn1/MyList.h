@@ -38,7 +38,7 @@ class MyList{
   MyList operator+(const MyList& str);
 
   /* Newly assigned functions */
-  bool is_palidrome()const;
+  bool is_palindrome()const;
   void merge_list(MyList A, MyList B);
   bool remove_char(char c);
   char front()const;
