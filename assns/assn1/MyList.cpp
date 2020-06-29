@@ -222,13 +222,23 @@ int  MyList::find(MyList& query_str)const{
     /*Finds the position of the first occurrence of MyList query_str 
     in the list and return that position. If query_str is not in the list, 
     the function returns -1.*/
-    Node* curr = head;
-    int pos = 0;
-    for(curr = query_str.head; curr; curr = curr->next){
-        if(curr->value = value){
-            return pos;
+    Node* curr = 0;
+    int i = 0;
+    int j = 0;
+    //int k = 0;
+    for(curr = head; curr; curr = curr->next){
+        if(curr->value == query_str[j]){
+            j++;
+            //k++;
+            if(j == query_str.size() - 1){
+                return i - query_str.size() + 2; //maybe add 1
+            }
         }
-        pos++;
+        else{
+            j = 0;
+            //k = 0;
+        }
+        i++;
     }
     return -1; //FIX
 }
@@ -238,14 +248,16 @@ int  MyList::find(MyList& query_str)const{
 MyList& MyList::operator=(const MyList& str){
     /*Overloaded assignment operator. Assigns the contents rhs (r-value) list 
     to lhs (l-value) list, e.g. l1 = l2; Check for self-assignment.*/
+    MyList* l = new MyList();
+
     if(this != &str){
         Node* curr = 0;
-        delete[] this;
+        //delete[] this;
         for(curr = str.head; curr; curr = curr->next){
-            push_back(curr->value);
+            l->push_back(curr->value);
         }
     }
-    return *this;
+    return *l;
 }
 
 /*
