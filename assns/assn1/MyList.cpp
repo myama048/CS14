@@ -23,13 +23,13 @@ object is allocated from the heap, using the keyword new.*/
 MyList::MyList(const string& str){
     /*Constructs a list from a passed in string object, 
     e.g. string username = "FLYNN"; MyList l1(username);.*/
-    for(unsigned int i = 0; i < str.size(); i++){
+    for(unsigned int i = 0; i < sizeof(str); i++){
         push_back(str[i]);
     }
 }
 
 
-MyList::MyList(const char* str){
+MyList::MyList(const char* str){ // ERROR!!
     /*Constructs a list from a passed in string literal, 
     e.g. MyList l1("Red pill, or Blue pill?");*/
     for(unsigned int i = 0; i < sizeof(str); i++){
@@ -336,21 +336,28 @@ bool MyList::is_palindrome()const{
             curr = curr->next;
         }
         
-        curr = curr->next; // mid value is ignored if sz = odd
+        
+        //curr = curr->next; // mid value is ignored if sz = odd
+        char dup = curr->value;
+        l1.push_back(dup);
+        curr = curr->next;
+        //l1.print();
         
         for(int i = 0; i < mid; i++){ //second half -> l2
             l2.push_front(curr->value);
             curr = curr->next;
         }
+        l2.push_back(dup);
+       // l2.print();
     }
     
-    Node* itr_1 = l1.head;
-    Node* itr_2 = l2.head;
+    Node* i2 = l2.head;
     
-    for(int i = 0; i < mid; i++){
-        if(itr_1->value != itr_2->value){
+    for(Node* i1 = l1.head;i1; i1 = i1->next){
+        if(i1->value != i2->value){
             return false;
         }
+        i2 = i2->next;
     }
     
     return true;
@@ -389,32 +396,38 @@ void MyList::merge_list(MyList A, MyList B){
 }
 
 
-bool MyList::remove_char(char c){
+bool MyList::remove_char(char c){ //ERROR
     /*Removes all instances of char c from implicit list object, 
     e.g. remove all commas (',')
     return true if at least one instance of char c is in the list, false otherwise.*/
     bool ok = false;
     
-    Node* curr = 0;
     if(!head){
-        return ok;
-    }
-    else if(!head->next){
-        if(head->value == c){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return false;
     }
     
-    for(curr = head; curr->next; curr = curr->next){
-        if(curr->next->value == c){
-            Node* tmp = curr->next;
-            curr->next = tmp->next;
-            delete tmp;
-            ok = true;
+    Node* curr = head;
+    while(head && head->value == c){ // if head == value
+        head = head->next;
+        delete curr;
+        curr = head;
+        ok = true;
+    }
+    
+    Node* prev = 0;
+    while(curr){
+        while(curr && curr->value != c){
+            prev = curr;
+            curr = curr->next;
         }
+        if(!curr){
+            return ok;
+        }
+        // curr->value = c
+        prev->next = curr->next;
+        delete curr;
+        curr = prev->next;
+        ok = true;
     }
     
     return ok;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "MyList.h"
 
 using namespace std;
@@ -135,10 +136,10 @@ int main() {
   pp.push_back(1);
   
   
-  if(!pp.is_palidrome()){
-    cout << "l4 is not palidrome" << endl;
+  if(!pp.is_palindrome()){
+    cout << "l4 is not palindrome" << endl;
   }else{
-    cout << "it is palidrome" << endl;
+    cout << "it is palindrome" << endl;
   }
   
   l3.print();
@@ -147,7 +148,39 @@ int main() {
   tst.push_back('3');
   tst.print();
   l3.print();
+  
+  //MyList pd = "AmoRe- RomA";
+  MyList pd;
+  pd.push_back('A');
+  pd.push_back('m');
+  pd.push_back('o');
+  pd.push_back('R');
+  pd.push_back('e');
+  pd.push_back('-');
+  pd.push_back(' ');
+  pd.push_back('R');
+  pd.push_back('o');
+  pd.push_back('m');
+  pd.push_back('A');
+  pd.print();
+  cout << pd.size() << endl;
+  if(pd.is_palindrome()){
+    cout << "yes" << endl;
+  }
+  else{
+    cout << "no" << endl;
+  }
 
   cout << "Good Bye!" << endl;
+  
+  string str = "Innovation!";
+  cout << '0' << endl;
+  MyList cc("Innovation?");
+  cout << "a" << endl;
+  MyList dd(str);
+  cout << '1' << endl;
+  dd.print();
+  cout << '2' << endl;
+  
   return 0;
 }
