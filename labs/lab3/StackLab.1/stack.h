@@ -74,15 +74,6 @@ bool Stack<T>::is_empty() const{
     return (t == -1);
 }
 
-/*
-string infix_to_postfix(string infix){
-    Stack s;
-   
-    
-    for(int i = 0; i < )
-    
-}
-*/
 
 
 #endif
