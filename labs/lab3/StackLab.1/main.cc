@@ -95,7 +95,7 @@ int main() {
     //s2.top(); // test 5: Raises underflow exception, uncomment this line only in try block to test
     s2.push(77); 
     s2.pop();
-    //s.pop(); // test 6: Raises underflow exception, uncomment this line only in try block to test
+    //s2.pop(); // test 6: Raises underflow exception, uncomment this line only in try block to test
   } catch(underflow_error& e) { // catch block
     cerr << "Underflow Exception: "<< e.what() << endl;
   } catch(...) { // catch-all block
@@ -108,9 +108,9 @@ int main() {
    * v.at(n) is not in range 0 to v.size()-1.
    */
   try {
-    // Raises out_of_range exception, uncomment next two lines in try block to test
-    // vector<int> myvector(10);
-    // cout << myvector.at(20); // vector::at throws an out-of-range
+     //Raises out_of_range exception, uncomment next two lines in try block to test
+     //vector<int> myvector(10);
+     //cout << myvector.at(20); // vector::at throws an out-of-range
   } catch(out_of_range& e) { // catch block
     cerr << "Out of range error: "<< e.what() << endl;
   } catch(...) { // catch-all block
