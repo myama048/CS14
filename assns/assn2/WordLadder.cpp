@@ -40,41 +40,37 @@ void WordLadder::outputLadder(const string& start, const string& end){
     first.push(start);
     //cout << 'd';
     wl.push(first);
-    cout << "aaa " << endl;
-    /*
-    stack<string> cpy = first;
-    while(!cpy.empty()){
-        cout << cpy.top();
-        cpy.pop();
-    }
-    */
-    cout << "YYY";
+    //cout << "YYY";
+    
     while(!wl.empty()){
-        //cout << "bbb " ;
+        //cout << "XXX";
         for(auto itr = dict.begin(); itr != dict.end(); itr++){
-            cout << "1 " ;
+            //cout << "1 " ;
             if(offByOne(*itr, wl.front().top())){ //find offByOne word from dict
-                cout << "2 ";
+                //cout << "2 ";
                 if(*itr == end){ // find the end word
-                    cout << "A word ladder found" << endl;
+                   // cout << "A word ladder found" << endl;
+                    wl.front().push(end);
                     outputLadder(wl.front(), start); 
                     return;
                 }
                 else{
-                    cout << "4 ";
+                    //cout << "4 ";
                     stack<string> tmp = wl.front();
                     tmp.push(*itr);
                     wl.push(tmp);
+                    dict.erase(itr); // remove the word from dict
+                    itr--;
                 }
-                dict.remove(*itr); // remove the word from dict
             }
             else{
                 // do nothing
-                cout << "5 ";
+               // cout << "5 ";
             }
         }
         wl.pop();
     }
+    
     cout <<"No Ladder found!" << endl;
 }
 
@@ -84,15 +80,14 @@ void WordLadder::outputLadder(stack<string>& s, const string& start){
     stack<string> cpy = s;
     
     while(!cpy.empty()){
-        l.push_front(cpy.top());
+        l.push_back(cpy.top());
         cpy.pop();
     }
-    
+    if(start == ""){} // why do we need this?
     for(auto it = l.begin(); it != l.end(); it++){
-        cout << *it << ' ';
+        cout << *it << endl;
     }
-    //cout << start;
-    if(start == ""){} // why is start neccessary?
+    
     cout << endl;
 }
 
@@ -114,6 +109,9 @@ bool WordLadder::offByOne(const string& s1, const string& s2){
         for(unsigned int i = 0; i < s1.size(); i++){
             if(s1[i] != s2[i]){
                 cnt++;
+            }
+            if(cnt > 1){
+                return false;
             }
         }
     }
