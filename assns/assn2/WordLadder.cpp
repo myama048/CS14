@@ -60,7 +60,7 @@ void WordLadder::outputLadder(const string& start, const string& end){
                     tmp.push(*itr);
                     wl.push(tmp);
                     dict.erase(itr); // remove the word from dict
-                    itr--;
+                    itr--; // avoid seg error. After erasing, elements are pushed to the left by 1
                 }
             }
             else{
