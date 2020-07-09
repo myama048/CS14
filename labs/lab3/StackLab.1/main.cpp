@@ -51,14 +51,22 @@ string infix_to_postfix(string infix){
     */
     
     Stack<int> stk;
-    string postfix = "";
+    string postfix = " ";
+    string str;
 
     for(unsigned int i = 0; i < infix.length(); i++) {
-        if (infix[i] == ' '){
+        if(i + 1 < infix.length() && isdigit(infix[i]) && isdigit(infix[i+1])){
+            postfix += infix[i];
+            i++;
+            postfix += infix[i];
+            postfix += ' ';
+        }
+        else if (infix[i] == ' '){
             continue;
         }
         else if(isdigit(infix[i])){
             postfix += infix[i];
+            postfix += ' ';
         }
         else if(infix[i] == '('){
             stk.push('(');
@@ -68,6 +76,7 @@ string infix_to_postfix(string infix){
                 char c = stk.top();
                 stk.pop();
                 postfix += c;
+                postfix += ' ';
             }
             if(stk.is_empty()){
                 throw invalid_argument(infix);
@@ -82,18 +91,18 @@ string infix_to_postfix(string infix){
                 char c = stk.top();
                 stk.pop();
                 postfix += c;
+                postfix += ' ';
             }
             stk.push(infix[i]);
         }
     }
-
     while(!stk.is_empty()) {
         postfix += stk.top();
+        postfix += ' ';
         stk.pop();
     }
 
     return postfix;
-    
 }
 
 // ######################## This should not be changed
@@ -111,8 +120,13 @@ double evaluate_rpn(string infix) // pass the intuitive infix expression here, j
     else if(!infix.compare("( 7 / 2 ) + 4")) return 7.5;
     else if(!infix.compare("( 8 / 2 ) + 4")) return 8;
     
-    else if(!infix_to_postfix(infix).compare("235-+")) return 0; // 2+3-5
-    else if(!infix_to_postfix(infix).compare("445*+27*5+3/-")) return 18; //(4+4*5) - ((2*7+5)/3) 
+    /*
+    2 + 3 - 5 = 0
+    ( 4 + 4 * 12 ) - ( ( 2 * 7 + 12 ) / 3 ) = 18
+    */
+    
+    //else if(!infix_to_postfix(infix).compare("2 3 5 - + ")) return 0; // 2+3-5
+    //else if(!infix_to_postfix(infix).compare("4 4 12 * + 2 7 * 12 + 3 / - ")) return 18; //(4+4*5) - ((2*7+5)/3) 
     else throw invalid_argument(infix);
     
     
@@ -153,8 +167,9 @@ int main(){
             cout << "Error in: " << e.what() << endl;
         }
     }
-    //cout << infix_to_postfix("2 + 3 - 5") << endl; //235-+
-    //cout << infix_to_postfix("( 4 + 4 * 5 ) - ( ( 2 * 7 + 5 ) / 3 )") << endl; //445*+27*5+3/-
+    //cout << infix_to_postfix("12 + 3 - 5") << endl; //12 3 5 - +
+    //cout << infix_to_postfix("2 + 3 - 5") << endl; //2 3 5 - +
+    //cout << infix_to_postfix("( 4 + 4 * 12 ) - ( ( 2 * 7 + 12 ) / 3 )") << endl; //445*+27*5+3/-
     //cout << infix_to_postfix("8 / 2 + 3") << endl; //returns 82/3+
     
     fin.close();
