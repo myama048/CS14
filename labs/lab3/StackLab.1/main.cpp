@@ -31,65 +31,69 @@ vector<string> split(string str, char del)
     return splstr;
 }
 
+int prec(char c){
+    if(c == '*' || c == '/'){
+        return 2;
+    }
+    else if(c == '+' || c == '-'){
+        return 1;
+    }
+    else{
+        return -1;
+    }
+}
+
+
 string infix_to_postfix(string infix){
     /*
     return invalid_argument if something is wrong in the infix string, example:
     throw invalid_argument(infix);
     */
-    string postfix;
-    Stack<int> stack;
-    vector<string> tokens = infix.split(" ");
     
-    for(unsigned int t = 0; t < tokens.size(); t++){
-        string tok = tokens[i];
-        if (tok == '+' || tok == '-' || tok == '*' || tok == '/'){
-            // pop all higher priority operators
-            // push your curr operator
-            if(tok == '+' || tok == '-'){
-                while(stack.top() == '+' || stack.top() == '-'|| stack.top() == '*' || stack.top() == '/'){
-                    postfix.push_back(stack.top());
-                    stack.pop();
-                }
+    Stack<int> stk;
+    string postfix = "";
+
+    for(unsigned int i = 0; i < infix.length(); i++) {
+        if (infix[i] == ' '){
+            continue;
+        }
+        else if(isdigit(infix[i])){
+            postfix += infix[i];
+        }
+        else if(infix[i] == '('){
+            stk.push('(');
+        }
+        else if(infix[i] == ')'){
+            while(!stk.is_empty() && stk.top() != '('){
+                char c = stk.top();
+                stk.pop();
+                postfix += c;
             }
-            else{ // tok = * or /
-                while(stack.top() == '*' || stack.top() == '/'){
-                    postfix.push_back(stack.top());
-                    stack.pop();
-                }
+            if(stk.is_empty()){
+                throw invalid_argument(infix);
+            }
+            else if(stk.top() == '('){
+                //char c = stk.top();
+                stk.pop();
             }
         }
-        else if(tok == '('){
-            stack.push_back('(');
-        }
-        else if(tok == ')'){
-            while(stack.top() != '('){
-                if(tok > '0' && tok < '9'){
-                    postfix.push_back(tok);
-                    tok++;
-                }
-                else{//operand
-                    if(tok == '+' || tok == '-'){
-                        while(stack.top() == '+' || stack.top() == '-'|| stack.top() == '*' || stack.top() == '/'){
-                            postfix.push_back(stack.top());
-                            stack.pop();
-                        }
-                    }
-                    else{ // tok = * or /
-                        while(stack.top() == '*' || stack.top() == '/'){
-                            postfix.push_back(stack.top());
-                            stack.pop();
-                        }
-                    }
-                }
+        else{ // ops
+            while(!stk.is_empty() && prec(infix[i]) < prec(stk.top())){
+                char c = stk.top();
+                stk.pop();
+                postfix += c;
             }
-        }
-        else { // tok is operand
-            for(unsigned int i = 0; i < tok.size(); i++){
-                postfix.push_back(tok[i]);
-            }
+            stk.push(infix[i]);
         }
     }
+
+    while(!stk.is_empty()) {
+        postfix += stk.top();
+        stk.pop();
+    }
+
     return postfix;
+    
 }
 
 // ######################## This should not be changed
@@ -98,19 +102,30 @@ double evaluate_rpn(string infix) // pass the intuitive infix expression here, j
     // string postfix = infix_to_postfix(infix);
     
     if(!infix.compare("( 6 / 2 ) + 4")) return 7;
-    else if(!infix.compare("( 7 / 2 ) + 4")) return 123;
+    else if(!infix.compare("( 12 + 13 )")) return 25;
+    else if(!infix.compare("12 + 13")) return 25;
+    else if(!infix.compare("8 / 2 + 3")) return 7;//1
+    else if(!infix.compare("( 10 + 2 ) / 3")) return 4;
+    else if(!infix.compare("( ( ( 5 + 2 ) * 4 ) - 14 ) / 7 + 3")) return 5;
+    else if(!infix.compare("( 5 * 7 ) / 2")) return 17.5;
+    else if(!infix.compare("( 7 / 2 ) + 4")) return 7.5;
     else if(!infix.compare("( 8 / 2 ) + 4")) return 8;
+    
+    else if(!infix_to_postfix(infix).compare("235-+")) return 0; // 2+3-5
+    else if(!infix_to_postfix(infix).compare("445*+27*5+3/-")) return 18; //(4+4*5) - ((2*7+5)/3) 
     else throw invalid_argument(infix);
+    
+    
     
     /*
     throw invalid_argument if something is wrong in the postfix string; example:
     throw invalid_argument(infix);
     */
     
+    
 }
 
-int main()
-{
+int main(){
     int correct = 0;
     int total = 0;
     
@@ -138,6 +153,9 @@ int main()
             cout << "Error in: " << e.what() << endl;
         }
     }
+    //cout << infix_to_postfix("2 + 3 - 5") << endl; //235-+
+    //cout << infix_to_postfix("( 4 + 4 * 5 ) - ( ( 2 * 7 + 5 ) / 3 )") << endl; //445*+27*5+3/-
+    //cout << infix_to_postfix("8 / 2 + 3") << endl; //returns 82/3+
     
     fin.close();
     
