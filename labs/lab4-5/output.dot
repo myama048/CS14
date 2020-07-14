@@ -1,0 +1,71 @@
+digraph G {
+//inorder
+d [color = red, peripheries = 2, style = filled, label="key=1, in=8"];
+b [color = red, peripheries = 2, style = filled, label="key=3, in=9"];
+e [color = red, peripheries = 2, style = filled, label="key=4, in=10"];
+a [color = red, peripheries = 2, style = filled, label="key=5, in=11"];
+f [color = red, peripheries = 2, style = filled, label="key=6, in=12"];
+c [color = red, peripheries = 2, style = filled, label="key=8, in=13"];
+g [color = red, peripheries = 2, style = filled, label="key=9, in=14"];
+
+b -> d;
+b -> e;
+a -> b;
+a -> c;
+c -> f;
+c -> g;
+}
+
+digraph G{
+//preorder
+a [color = orange, peripheries = 2, style = filled, label="key=5, pre=1"];
+b [color = orange, peripheries = 2, style = filled, label="key=3, pre=2"];
+d [color = orange, peripheries = 2, style = filled, label="key=1, pre=3"];
+e [color = orange, peripheries = 2, style = filled, label="key=4, pre=4"];
+c [color = orange, peripheries = 2, style = filled, label="key=8, pre=5"];
+f [color = orange, peripheries = 2, style = filled, label="key=6, pre=6"];
+g [color = orange, peripheries = 2, style = filled, label="key=9, pre=7"];
+
+a -> b;
+a -> c;
+b -> d;
+b -> e;
+c -> f;
+c -> g;
+}
+
+digraph G{
+//postorder
+d [color = red, peripheries = 2, style = filled, label="key=1, in=1"];
+e [color = red, peripheries = 2, style = filled, label="key=4, in=2"];
+b [color = red, peripheries = 2, style = filled, label="key=3, in=3"];
+f [color = red, peripheries = 2, style = filled, label="key=6, in=4"];
+g [color = red, peripheries = 2, style = filled, label="key=9, in=5"];
+c [color = red, peripheries = 2, style = filled, label="key=8, in=6"];
+a [color = red, peripheries = 2, style = filled, label="key=5, in=7"];
+
+b -> d;
+b -> e;
+c -> f;
+c -> g;
+a -> b;
+a -> c;
+}
+
+digraph G{
+//height
+d [color = lightblue, style = filled, label="key=1, h=0"];
+b [color = lightblue, style = filled, label="key=3, h=1"];
+e [color = lightblue, style = filled, label="key=4, h=0"];
+a [color = lightblue, style = filled, label="key=5, h=2"];
+f [color = lightblue, style = filled, label="key=6, h=0"];
+c [color = lightblue, style = filled, label="key=8, h=1"];
+g [color = lightblue, style = filled, label="key=9, h=0"];
+
+a -> b[color=blue];
+a -> c[color=blue];
+b -> d[color=blue];
+b -> e[color=blue];
+c -> f[color=blue];
+c -> g[color=blue];
+}

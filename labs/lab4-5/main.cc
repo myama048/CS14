@@ -44,9 +44,6 @@ int main(int argc, char* argv[]) {
     }
     else if(cmd == "dotty") {
       
-      string mode;
-      cin.ignore();
-      getline(cin, mode);
       
       cout << "mode = " << mode << endl; //remove once mode used in program
       // implement code here that will produce the correct dot file
@@ -60,6 +57,10 @@ int main(int argc, char* argv[]) {
     }
     else if(cmd == "display") t.display();
     else if(cmd == "end") break;
+    else if(cmd == "preorder") t.preorder();
+    else if(cmd == "postorder") t.postorder();
+    else if(cmd == "inorder") t.inorder();
+    else if(cmd == "height") t.height();
     else
       cout << cmd << ", not found, try again." << endl;
   }

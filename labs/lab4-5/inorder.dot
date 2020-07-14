@@ -1,0 +1,16 @@
+digraph G {
+d [color = red, peripheries = 2, style = filled, label="key=1, in=1"];
+b [color = red, peripheries = 2, style = filled, label="key=3, in=2"];
+e [color = red, peripheries = 2, style = filled, label="key=4, in=3"];
+a [color = red, peripheries = 2, style = filled, label="key=5, in=4"];
+f [color = red, peripheries = 2, style = filled, label="key=6, in=5"];
+c [color = red, peripheries = 2, style = filled, label="key=8, in=6"];
+g [color = red, peripheries = 2, style = filled, label="key=9, in=7"];
+
+b -> d;
+b -> e;
+a -> b;
+a -> c;
+c -> f;
+c -> g;
+}
