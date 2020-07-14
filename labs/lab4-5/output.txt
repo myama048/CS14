@@ -53,7 +53,6 @@ a -> c;
 }
 
 digraph G{
-//height
 d [color = lightblue, style = filled, label="key=1, h=0"];
 b [color = lightblue, style = filled, label="key=3, h=1"];
 e [color = lightblue, style = filled, label="key=4, h=0"];

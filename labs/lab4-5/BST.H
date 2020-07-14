@@ -82,7 +82,7 @@ public:
   
   void inorder() {
     ofstream myfile;
-    myfile.open("inorder.txt");
+    myfile.open("inorder.dot");
     myfile.clear();
     myfile << "digraph G {" << endl;
     inorder(root, myfile); 
@@ -90,7 +90,49 @@ public:
     inorder2(root, myfile);
     myfile << "}" << endl;
     myfile.close();
-    cout << "inorder" << endl;}
+    cout << "inorder" << endl;
+    
+    
+    ofstream myfile2;
+    myfile2.open("output.dot");
+    myfile2.clear();
+    myfile2 << "digraph G {" << endl;
+    myfile2 << "//inorder" << endl;
+    inorder(root, myfile2); 
+    myfile2 << endl;
+    inorder2(root, myfile2);
+    myfile2 << "}" << endl;
+    
+    myfile2 << endl;
+    
+    myfile2 << "digraph G{" << endl;
+    myfile2 << "//preorder" << endl;
+    preorder(root, myfile2); 
+    myfile2 << endl;
+    preorder2(root, myfile2);
+    myfile2 << "}" << endl;
+    
+    myfile2 << endl;
+    
+    myfile2 << "digraph G{" << endl;
+    myfile2 << "//postorder" << endl;
+    postorder(root, myfile2);
+    myfile2 << endl;
+    postorder2(root, myfile2);
+    myfile2 << "}" << endl;
+    
+    myfile2 << endl;
+    
+    myfile2 << "digraph G{" << endl;
+    myfile2 << "//height" << endl;
+    height(root, myfile2); 
+    myfile2 << endl;
+    height2(root, myfile2);
+    myfile2 << "}" << endl;
+    
+    myfile2.close();
+    
+  }
   void inorder(BinaryNode* t, ofstream& of){
     //static char alph = 'a';
     static int in_num = 1;
@@ -116,7 +158,7 @@ public:
   
   void preorder(){
     ofstream myfile;
-    myfile.open("preorder.txt");
+    myfile.open("preorder.dot");
     myfile.clear();
     myfile << "digraph G{" << endl;
     preorder(root, myfile); 
@@ -153,7 +195,7 @@ public:
 
   void postorder(){
     ofstream myfile;
-    myfile.open("postorder.txt");
+    myfile.open("postorder.dot");
     myfile.clear();
     myfile << "digraph G{" << endl;
     postorder(root, myfile);
@@ -188,7 +230,7 @@ public:
   
   void height(){
     ofstream myfile;
-    myfile.open("height.txt");
+    myfile.open("height.dot");
     myfile.clear();
     myfile << "digraph G{" << endl;
     height(root, myfile); 
