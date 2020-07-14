@@ -15,22 +15,27 @@
 
 using namespace std;
 
+static int al = 0;
 class BST {
 
 private:
+  
   struct BinaryNode {
 
     int value;
     BinaryNode* left;
     BinaryNode* right;
+    char alph;
     int depth;
     int height;
     int inorder_num;
     int preorder_num;
+    int postorder_num;
     BinaryNode(int& v) : value(v), left(NULL), right(NULL) {}
     static BinaryNode* insert(int v, BinaryNode* t) {
       if(t == NULL){
 	      t = new BinaryNode(v);
+	      t->alph = 'a' + al++;//
       }
       else if (v < t->value)
 	      t->left = insert(v, t->left);
@@ -75,31 +80,158 @@ public:
   void insert(int v) { root = BinaryNode::insert(v, root); }
   void remove(int v) { root = BinaryNode::remove(v, root); }
   
-  void inorder() {inorder(root); cout << "inorder" << endl;}
-  void inorder(BinaryNode* t){
+  void inorder() {
+    ofstream myfile;
+    myfile.open("inorder.txt");
+    myfile.clear();
+    myfile << "digraph G {" << endl;
+    inorder(root, myfile); 
+    myfile << endl;
+    inorder2(root, myfile);
+    myfile << "}" << endl;
+    myfile.close();
+    cout << "inorder" << endl;}
+  void inorder(BinaryNode* t, ofstream& of){
+    //static char alph = 'a';
+    static int in_num = 1;
     if(t == NULL) return;
-    inorder(t->left);
-    cout << t->value << "," << endl;
-    inorder(t->right);
+    inorder(t->left, of);
+    t->inorder_num = in_num++;
+    of << t->alph << ' ' << "[color = red, peripheries = 2, style = filled, label=\"key=" <<
+    t->value << ", in=" << t->inorder_num << "\"];"<< endl;
+    //alph++;
+    inorder(t->right, of);
+  }
+  void inorder2(BinaryNode* t, ofstream& of){
+    if(t == NULL) return;
+    inorder2(t->left, of);
+    if(t->left){
+      of << t->alph << " -> " << t->left->alph << ";" << endl;
+    }
+    if(t->right){
+      of << t->alph << " -> " << t->right->alph << ";" << endl;
+    }
+    inorder2(t->right, of);
   }
   
-  void preorder(){preorder(root); cout << "preorder" << endl;}
-  void preorder(BinaryNode* t){
+  void preorder(){
+    ofstream myfile;
+    myfile.open("preorder.txt");
+    myfile.clear();
+    myfile << "digraph G{" << endl;
+    preorder(root, myfile); 
+    myfile << endl;
+    preorder2(root, myfile);
+    myfile << "}" << endl;
+    myfile.close();
+    cout << "preorder" << endl;
+    
+  }
+  void preorder(BinaryNode* t, ofstream& of){
+    //static char alph = 'a';
+    static int pre_num = 1;
     if(t == NULL) return;
-    cout << t->value << "," << endl;
-    preorder(t->left);
-    preorder(t->right);
+    t->preorder_num = pre_num++;
+    of << t->alph << ' ' << "[color = orange, peripheries = 2, style = filled, label=\"key=" <<
+    t->value << ", pre=" << t->preorder_num << "\"];"<< endl;
+    //alph++;
+    preorder(t->left, of);
+    preorder(t->right, of);
+  }
+  void preorder2(BinaryNode* t, ofstream& of){
+    if(t == NULL) return;
+    if(t->left){
+      of << t->alph << " -> " << t->left->alph << ";" << endl;
+    }
+    if(t->right){
+      of << t->alph << " -> " << t->right->alph << ";" << endl;
+    }
+    preorder2(t->left, of);
+    preorder2(t->right, of);
   }
   
-  void postorder(){postorder(root); cout << "postorder" << endl;}
-  void postorder(BinaryNode* t){
+
+  void postorder(){
+    ofstream myfile;
+    myfile.open("postorder.txt");
+    myfile.clear();
+    myfile << "digraph G{" << endl;
+    postorder(root, myfile);
+    myfile << endl;
+    postorder2(root, myfile);
+    myfile << "}" << endl;
+    myfile.close();
+    cout << "postorder" << endl;
+  }
+  void postorder(BinaryNode* t, ofstream& of){
     if(t == NULL) return;
-    postorder(t->left);
-    postorder(t->right);
-    cout << t->value << "," << endl;
+    //static char alph = 'a';
+    static int post_num = 1;
+    postorder(t->left, of);
+    postorder(t->right, of);
+    t->postorder_num = post_num++;
+    of << t->alph << ' ' << "[color = red, peripheries = 2, style = filled, label=\"key=" <<
+    t->value << ", in=" << t->postorder_num << "\"];"<< endl;
+    //alph++;
+  }
+  void postorder2(BinaryNode* t, ofstream& of){
+    if(t == NULL) return;
+    postorder2(t->left, of);
+    postorder2(t->right, of);
+    if(t->left){
+      of << t->alph << " -> " << t->left->alph << ";" << endl;
+    }
+    if(t->right){
+      of << t->alph << " -> " << t->right->alph << ";" << endl;
+    }
   }
   
-  //void height(){height}
+  void height(){
+    ofstream myfile;
+    myfile.open("height.txt");
+    myfile.clear();
+    myfile << "digraph G{" << endl;
+    height(root, myfile); 
+    myfile << endl;
+    height2(root, myfile);
+    myfile << "}" << endl;
+    myfile.close();
+    cout << "height" << endl;
+  }
+  void height(BinaryNode* t, ofstream& of){
+    if(t == NULL) return;
+    //static char alph = 'a';
+    height(t->left, of);
+    t->height = tree_height(t);
+    of << t->alph << ' ' << "[color = lightblue, style = filled, label=\"key=" <<
+    t->value << ", h=" << t->height - 1 << "\"];"<< endl;
+    //alph++;
+    height(t->right, of);
+  }
+  void height2(BinaryNode* t, ofstream& of){
+    if(t == NULL) return;
+    if(t->left){
+      of << t->alph << " -> " << t->left->alph << "[color=blue];" << endl;
+    }
+    if(t->right){
+      of << t->alph << " -> " << t->right->alph << "[color=blue];" << endl;
+    }
+    height2(t->left, of);
+    height2(t->right, of);
+  }
+  
+  int tree_height(BinaryNode* node) {
+    if (!node)
+        return 0;
+    else {
+        int left_height = tree_height(node->left);
+        int right_height = tree_height(node->right);
+        if (left_height >= right_height)
+            return left_height + 1;
+        else
+            return right_height + 1;
+    }
+}
   
   void display() { display(root); }
   void display( BinaryNode* t ) {
@@ -117,10 +249,6 @@ public:
   }
   private:
     BinaryNode* root;
-    
-  
-    
-  
     
 };
 

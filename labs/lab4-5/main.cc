@@ -54,10 +54,10 @@ int main(int argc, char* argv[]) {
       
     }
     else if(cmd == "display") t.display();
-    else if(mode == "preorder") t.preorder();
-    else if(mode == "postorder") t.postorder();
-    else if(mode == "inorder") t.inorder();
-   // else if(mode == "height") t.height();
+    else if(cmd == "preorder") t.preorder();
+    else if(cmd == "postorder") t.postorder();
+    else if(cmd == "inorder") t.inorder();
+    else if(cmd == "height") t.height();
     else if(cmd == "end") break;
     else
       cout << cmd << ", not found, try again." << endl;
