@@ -1,16 +1,14 @@
 digraph G{
-a [color = orange, peripheries = 2, style = filled, label="key=5, pre=1"];
-b [color = orange, peripheries = 2, style = filled, label="key=3, pre=2"];
-d [color = orange, peripheries = 2, style = filled, label="key=1, pre=3"];
-e [color = orange, peripheries = 2, style = filled, label="key=4, pre=4"];
-c [color = orange, peripheries = 2, style = filled, label="key=8, pre=5"];
-f [color = orange, peripheries = 2, style = filled, label="key=6, pre=6"];
-g [color = orange, peripheries = 2, style = filled, label="key=9, pre=7"];
+a [color = orange, peripheries = 2, style = filled, label="key=5, pre=8"];
+b [color = orange, peripheries = 2, style = filled, label="key=3, pre=9"];
+d [color = orange, peripheries = 2, style = filled, label="key=1, pre=10"];
+e [color = orange, peripheries = 2, style = filled, label="key=4, pre=11"];
+c [color = orange, peripheries = 2, style = filled, label="key=8, pre=12"];
+f [color = orange, peripheries = 2, style = filled, label="key=6, pre=13"];
 
 a -> b;
 a -> c;
 b -> d;
 b -> e;
 c -> f;
-c -> g;
 }

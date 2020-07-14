@@ -76,7 +76,20 @@ private:
 
 public:
   BST(): root(NULL) {}
-  ~BST() {}
+  ~BST() {
+    cout << "Destructor called..." << endl;
+    freeNode(root);
+  }
+  
+  void freeNode( BinaryNode* node ) {
+    if (node != NULL) {
+        freeNode(node->left);
+        freeNode(node->right);
+        cout << "Deleting " << node->value << "..." << endl;
+        delete node;
+    }
+}
+  
   void insert(int v) { root = BinaryNode::insert(v, root); }
   void remove(int v) { root = BinaryNode::remove(v, root); }
   
