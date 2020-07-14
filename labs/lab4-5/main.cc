@@ -45,19 +45,20 @@ int main(int argc, char* argv[]) {
     else if(cmd == "dotty") {
       
       string mode;
+      cin.ignore();
       getline(cin, mode);
       
       cout << "mode = " << mode << endl; //remove once mode used in program
       // implement code here that will produce the correct dot file
       // based on the user's preference (mode), i.e., preorder, postorder,
       // inorder, node height
+      if(mode == "preorder") t.preorder();
+      else if(mode == "postorder") t.postorder();
+      else if(mode == "inorder") t.inorder();
+      else if(mode == "height") t.height();
       
     }
     else if(cmd == "display") t.display();
-    else if(cmd == "preorder") t.preorder();
-    else if(cmd == "postorder") t.postorder();
-    else if(cmd == "inorder") t.inorder();
-    else if(cmd == "height") t.height();
     else if(cmd == "end") break;
     else
       cout << cmd << ", not found, try again." << endl;
