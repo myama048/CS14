@@ -12,31 +12,31 @@ template < typename Item >
     typedef int indx;
     map < Item, indx > index;
     map < Item, float > priority;
-    void percolate_up(indx i){
+    
+    void percolate_up(indx i) {
       if(i && heap.at(parent(i)) > heap[i]){
         swap(heap[i], heap[parent(i)]);
         percolate_up(parent(i));
       }
     }
-    void percolate_down(indx i){
+
+    void percolate_down(indx i) {
       int left = i*2 + 1;
       int right = i*2 + 2;
       int smallest = i;
       
-      if(left < size() && heap[left] < heap[i]){
+      if(left < size() && priority[heap[left]] < priority[heap[smallest]])
         smallest = left;
-      }
-      if(right < size() && heap[right] < heap[smallest]){
+    
+      if(right < size() && priority[heap[right]] < priority[heap[smallest]])
         smallest = right;
-      }
       
-      if(smallest != i){
-        swap(heap[i], heap[smallest]);//
+      if(smallest != i) {
+        swap(heap[i], heap[smallest]);
         percolate_down(smallest);
       }
     }
-
-
+    
     //------------------------------------------------------------
     // This is just us helping you out
     // Use if needed
@@ -77,17 +77,29 @@ template < typename Item >
     int size() const{
       return heap.size();
     }
+    
     bool empty() const{
       return (heap.size() == 0);
     }
+    
     const Item & front() const{
+      if (empty()) {
+        exit(1);
+      }
+      
       return heap.at(0);
     }
+    
     void pop(){
-      heap.at(0) = heap.at(last());
+      if (empty()) {
+        exit(1);
+      }
+      
+      heap[0] = heap[last()];
       heap.pop_back();
       percolate_down(0);
     }
+    
     void push(const Item & w, float prio){
       index[w] = heap.size();
       priority[w] = prio;
