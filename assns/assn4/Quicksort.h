@@ -8,6 +8,8 @@ template<typename T>
 void quicksort_med(vector<T>& v, int i, int k);
 template<typename T>
 int partition(vector<T>& v, int i, int k, string& p);
+template<typename T>
+void InsertionSort(vector<T>& numbers);
 
 template<typename T>
 vector<T>& quicksort(vector<T>& v, const string& pivot) {
@@ -29,8 +31,14 @@ void quicksort_rand(vector<T>& v, int i, int k){
     }    
     string str = "random";
     int j = partition(v,i,k,str);
-    quicksort_rand(v,i,j);
-    quicksort_rand(v,j+1,k);
+    if(k - i < 5){
+        InsertionSort(v);
+    }
+    else{
+        quicksort_rand(v,i,j);
+        quicksort_rand(v,j+1,k);
+    }
+    
 }
 
 template<typename T>
@@ -40,8 +48,13 @@ void quicksort_med(vector<T>& v, int i, int k){
     }
     string str = "median_three";
     int j = partition(v,i,k,str);
-    quicksort_med(v,i,j);
-    quicksort_med(v,j+1,k);
+    if(k-i < 5){
+        InsertionSort(v);
+    }
+    else{
+        quicksort_med(v,i,j);
+        quicksort_med(v,j+1,k);
+    }
 }
 
 template<typename T>
@@ -97,3 +110,32 @@ int partition(vector<T>& v, int i, int k, string& p){
     }
     return h;
 }
+
+
+
+
+
+
+
+template<typename T>
+void InsertionSort(vector<T>& numbers){// InsertionSort for array
+    int numbersSize = numbers.size();
+    for(int i = 1; i < numbersSize; i++){
+      int j = 0;
+      while(j < i && numbers[j] < numbers[i]){
+        j++;
+      }
+      if(j != i){
+        while(j != i){
+            if(numbers[i] < numbers[j]){
+                //swap(numbers, i, j); //swap num[i] and num[2]
+                T cpy = numbers[i];
+                numbers[i] = numbers[j];
+                numbers[j] = cpy;
+            }  
+            j++;
+        }
+      }
+        
+    }
+} 

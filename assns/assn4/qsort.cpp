@@ -60,14 +60,40 @@ int main(){
     v3.push_back(4);
     v3.push_back(15);
     cout << "v3: ";
-    for(unsigned int i = 0; i < v1.size(); i++){
+    for(unsigned int i = 0; i < v3.size(); i++){
         cout << v3[i] << ", ";
     }
     cout << endl;
     v3 = quicksort(v3, pivot);
      cout << "v3: ";
-    for(unsigned int i = 0; i < v1.size(); i++){
+    for(unsigned int i = 0; i < v3.size(); i++){
         cout << v3[i] << ", ";
     }
     cout << endl;
+    
+    cout << "=========================" << endl;
+    
+    vector<int> v4;
+    v4.push_back(39);
+    v4.push_back(17);
+    v4.push_back(24);
+    v4.push_back(56);
+    v4.push_back(5);
+    v4.push_back(13);
+    v4.push_back(21);
+    v4.push_back(1);
+    v4.push_back(4);
+    v4.push_back(15);
+    cout << "v4: ";
+    for(unsigned int i = 0; i < v4.size(); i++){
+        cout << v4[i] << ", ";
+    }
+    cout << endl;
+    v3 = quicksort(v4, pivot);
+     cout << "v4: ";
+    for(unsigned int i = 0; i < v4.size(); i++){
+        cout << v4[i] << ", ";
+    }
+    cout << endl;
+    
 }

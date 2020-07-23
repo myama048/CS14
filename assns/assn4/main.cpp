@@ -92,12 +92,26 @@ cout << "jjj" << endl;
   cout << endl;
 
   InsertionSort(numbers, NUMBERS_SIZE);
-
+cout << "ggggggggggggggggggggggggggg" <<endl;
   cout << "SORTED: ";
   for(int i = 0; i < NUMBERS_SIZE; ++i) {
    cout << numbers[i] << " ";
   }
   cout << endl;
+  
+  int gg = 15;
+  int ggg[] = {2,5,235,63,62,23,72,4,6,20,50,12,14,1,0};
+  
+  for(int i = 0; i < gg; i++){
+    cout << ggg[i] << " ";
+  }
+  cout <<"ok" << endl;
+  InsertionSort(ggg, gg);
+  for(int i = 0; i < gg; i++){
+    cout << ggg[i] << " ";
+  }
+  cout << endl;
+  
   return 0;
 }
 
@@ -215,7 +229,8 @@ void InsertionSort(int numbers[], int numbersSize){// InsertionSort for array
       }
       if(j != i){
         while(j != i){
-          swap(numbers, i, j); //swap num[i] and num[2]
+          if(numbers[i] < numbers[j])
+            swap(numbers, i, j); //swap num[i] and num[2]
           j++;
         }
       }
