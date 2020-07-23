@@ -1,37 +1,50 @@
-#include "Quicksort.h"
 #include <iostream>
-#include <cstdlib> 
-#include <vector>
+#include <cstdlib>
+#include <list>
 
 #define SEQ_SIZE 100
 #define ASSERT(condition) { if(condition) { cerr << "Assertion passed: " << #condition << endl; } else { cerr << "Assertion failed: " << #condition << endl; } }
 
 using namespace std;
 
+void InsertionSort(list<int>& S){ // InsertionSort for list
+    list<int> l;
+    l.push_back(S.front());
+    S.pop_front();
+    
+    for(list<int>::iterator itr = S.begin(); itr != S.end(); itr++){
+      list<int>::iterator l_it = l.begin();
+      while(*l_it < *itr){
+        l_it++;
+      }
+      l.insert(l_it, *itr);
+    }
+    
+    S = l;
+}                       
 
-template<typename T>
-void Display(std::vector<T> ;<int>& S) {
-  for(vector<int>::iterator it = S.begin(); it != S.end(); ++it)
+void Display(list<int>& S) {
+  for(list<int>::iterator it = S.begin(); it != S.end(); ++it)
     cout << *it << " ";
   cout << endl;
 }
 
-bool QuickSortRandom() {
-    vector<int> seq;
+bool InsertionSortBackwards() {
+    list<int> seq;
     
     for (int i = SEQ_SIZE; i > 0; i--) {
-        seq.push_back((rand() % SEQ_SIZE) + 1);
+        seq.push_back(i);
     }
     
     // cout << "Unsorted list: " << endl;
     // Display(seq);
     
-    quicksort(seq, "random");
+    InsertionSort(seq);
     
     // cout << "Sorted list: " << endl;
     // Display(seq);
     
-    vector<int>::iterator iter = seq.begin();
+    list<int>::iterator iter = seq.begin();
     int key = *iter;
     
     for(iter++; iter != seq.end(); iter++)
@@ -45,8 +58,8 @@ bool QuickSortRandom() {
     return true;
 }
 
-bool QuickSortMedianThree() {
-    vector<int> seq;
+bool InsertionSortRandom() {
+    list<int> seq;
     
     for (int i = SEQ_SIZE; i > 0; i--) {
         seq.push_back((rand() % SEQ_SIZE) + 1);
@@ -55,12 +68,12 @@ bool QuickSortMedianThree() {
     // cout << "Unsorted list: " << endl;
     // Display(seq);
     
-    QuickSort(seq, "median_three");
+    InsertionSort(seq);
     
     // cout << "Sorted list: " << endl;
     // Display(seq);
     
-    vector<int>::iterator iter = seq.begin();
+    list<int>::iterator iter = seq.begin();
     int key = *iter;
     
     for(iter++; iter != seq.end(); iter++)
@@ -75,6 +88,6 @@ bool QuickSortMedianThree() {
 }
 
 int main() {
-    ASSERT(QuickSortRandom());
-    ASSERT(QuickSortMedianThree());
+    ASSERT(InsertionSortBackwards());
+    ASSERT(InsertionSortRandom());
 }
