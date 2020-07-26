@@ -62,7 +62,7 @@ public:
     }
     void output_graph(){ /* implement output_graph */ 
         ofstream myfile;
-        myfile.open("output.dot");
+        myfile.open("graph.dot");
         myfile.clear();
         myfile << "digraph G {\n" << endl;
         for(unsigned int i = 0; i < vertices.size(); i++){
