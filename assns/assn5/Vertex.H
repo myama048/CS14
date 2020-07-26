@@ -8,6 +8,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ public:
     string label;
     int distance;
     list<int> neighbors;
+    list<int> shortest; //stores dest if to_dest is shortest path
 };
 
 #endif /* VERTEX_H_ */

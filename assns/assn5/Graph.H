@@ -69,10 +69,20 @@ public:
             myfile << "    " << vertices[i].label << ";" << endl;
         }
         myfile << endl;
-        
         for(unsigned int i = 0; i < vertices.size(); i++){
             for(list<int>::iterator it = vertices[i].neighbors.begin(); it != vertices[i].neighbors.end(); it++){
-                myfile << "    " << vertices[i].label << "->" << vertices[*it].label << endl;
+                myfile << "    " << vertices[i].label << "->" << vertices[*it].label;
+                bool find = false;
+                for(list<int>::iterator s_it = vertices[i].shortest.begin(); s_it != vertices[i].shortest.end(); s_it++){
+                    if(vertices[*it].label == vertices[*s_it].label){
+                        myfile << " [style=bold, color = blue]";
+                        find = true;
+                    }
+                }
+                if(!find){
+                    myfile << " [style=dotted]";
+                }
+                myfile << endl;
             }
         }
         
@@ -87,6 +97,11 @@ public:
         while(!q.empty()){
             for(list<int>::iterator it = q.front().neighbors.begin(); it != q.front().neighbors.end(); it++){
                 if(vertices[*it].distance == 100){
+                    //--extra credit--
+                    int pos = 0;
+                    for(pos = 0; q.front().label != vertices[pos].label;pos++){}
+                    vertices[pos].shortest.push_back(*it);
+                    //----------------
                     vertices[*it].distance = q.front().distance + 1;
                     q.push(vertices[*it]);
                 }
