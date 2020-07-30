@@ -1,0 +1,32 @@
+digraph G {
+
+    Lodi;
+    Nile;
+    Mondavi;
+    Rivoli;
+    Pyramids;
+    Zurich;
+    Marengo;
+    Friedland;
+
+    Lodi->Mondavi [style=bold, color = blue]
+    Lodi->Rivoli [style=bold, color = blue]
+    Lodi->Pyramids [style=bold, color = blue]
+    Nile->Rivoli [style=dotted]
+    Nile->Marengo [style=dotted]
+    Mondavi->Lodi [style=dotted]
+    Mondavi->Nile [style=bold, color = blue]
+    Mondavi->Zurich [style=bold, color = blue]
+    Mondavi->Friedland [style=bold, color = blue]
+    Rivoli->Nile [style=dotted]
+    Pyramids->Mondavi [style=dotted]
+    Pyramids->Lodi [style=dotted]
+    Pyramids->Marengo [style=bold, color = blue]
+    Zurich->Nile [style=dotted]
+    Zurich->Pyramids [style=dotted]
+    Zurich->Lodi [style=dotted]
+    Marengo->Rivoli [style=dotted]
+    Friedland->Mondavi [style=dotted]
+    Friedland->Nile [style=dotted]
+    Friedland->Marengo [style=dotted]
+}
